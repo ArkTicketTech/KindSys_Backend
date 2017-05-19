@@ -15,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/kindsys'); // connect to our databas
 
 // Models
 var Parent     = require('./models/parent');
+var Parent     = require('./models/teacher');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -64,6 +65,32 @@ router.route('/parents')
                 res.send(err);
 
             res.json(parents);
+        });
+    });
+
+
+router.route('/teachers')
+
+    .post(function(req, res) {
+
+        var teacher = new Teacher();
+        teacher.teacherName = req.body.teacherName;
+        teacher.course = req.body.course;
+        teacher.phone = req.body.phone;
+
+        teacher.save(function(err) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'teacher created!' });
+        });
+
+    })
+
+    .get(function(req, res) {
+        Teacher.find(function(err, parents) {
+            if (err)
+                res.send(err);
+            res.json(teachers);
         });
     });
 
