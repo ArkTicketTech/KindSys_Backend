@@ -87,7 +87,7 @@ router.route('/teachers')
     })
 
     .get(function(req, res) {
-        Teacher.find(function(err, parents) {
+        Teacher.find(function(err, teachers) {
             if (err)
                 res.send(err);
             res.json(teachers);
