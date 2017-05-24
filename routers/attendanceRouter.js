@@ -5,7 +5,8 @@ var express = require('express'),
 router.route('/')
 
     .post(function(req, res) {
-
+        console.log(req.query.pId);
+        var pId = req.query.pId;
         var attendance = new Attendance();      // create a new instance of the parent model
         attendance.pId = req.body.pId;
         attendance.reason = req.body.reason;
@@ -22,12 +23,12 @@ router.route('/')
     })
 
     .get(function(req, res) {
-        Attendance.find(function(err, parents) {
+        console.log(req.query.pId);
+        var pId = req.query.pId;
+        Attendance.find({'pId':pId}, function(err, attendance) {
             if (err)
                 res.send(err);
-
-            res.json(parents);
+            res.json(attendance);
         });
     });
-
 module.exports = router;
